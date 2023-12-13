@@ -11,6 +11,7 @@
  */
 package com.jwy.mokey1.web;
 
+import com.jwy.medusa.exception.MyServiceException;
 import com.jwy.medusa.mvc.MyResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,11 @@ public class SampleController {
     @GetMapping("/s1/{userId}")
     public Mono<MyResponse> s1(@PathVariable Long userId) {
         return Mono.just(MyResponse.ofSuccess(userId));
+    }
+
+    @GetMapping("/s2")
+    public Mono<MyResponse> s2() {
+        throw new MyServiceException();
     }
 
 
