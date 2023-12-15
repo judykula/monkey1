@@ -13,34 +13,81 @@ package com.jwy.mokey1.web;
 
 import com.jwy.medusa.exception.MyServiceException;
 import com.jwy.medusa.mvc.MyResponse;
+import com.jwy.mokey1.dto.request.ValidSampleDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
+import javax.validation.Valid;
+
 /**
  * <p>
  *     例子
+ * </p>
+ * <p>
+ *     框架的返回数据结构统一为{@link MyResponse}:
+ *     <pre>
+ *         {
+ *             "data": xxx, //jsonObject 响应数据对象
+ *             "mystatus": { //服务状态描述对象
+ *                 "code": 200, //服务状态码，正常状态用200表示，其他为错误状态，参考{@link com.jwy.medusa.mvc.MyStatusz}
+ *                 "desc": "xxx"  //服务状态信息描述
+ *             },
+ *             "ts": 19763223456, //服务响应时的时间戳，millisecond
+ *             "status": 200    //系统自带http code，框架没用进行干涉，适当使用
+ *         }
+ *     </pre>
+ *     请求方需要优先判断"mystatus"对象，再根据code进行逻辑 "正常/异常"处理，以及是否需要解析"data"对象。
  * </p>
  *
  * @author Jiang Wanyu
  * @version 1.0
  * @date 2023/11/21
  */
+@Slf4j
 @RestController
 @RequestMapping("/sample")
 public class SampleController {
 
+    /**
+     * 例子：使用path value的参数方式请求
+     *
+     * 比如这样{@code http:127.0.0.1:8080/sample/s1/123456}
+     *
+     * @param userId
+     * @return
+     */
     @GetMapping("/s1/{userId}")
     public Mono<MyResponse> s1(@PathVariable Long userId) {
         return Mono.just(MyResponse.ofSuccess(userId));
     }
 
+    /**
+     * 例子：验证关于框架如何处理业务异常{@link MyServiceException}的情形
+     *
+     * @return
+     */
     @GetMapping("/s2")
     public Mono<MyResponse> s2() {
         throw new MyServiceException();
     }
 
+    /**
+     * 例子：验证{@code Valid}参数验证的框架处理逻辑
+     *
+     * @param sampleDto
+     * @return
+     */
+    @PostMapping("/s3")
+    public Mono<MyResponse> s3(@Valid @RequestBody ValidSampleDto sampleDto) {
+        log.info("================== "+ sampleDto);
+
+        return Mono.just(MyResponse.ofSuccess());
+    }
 
 }
