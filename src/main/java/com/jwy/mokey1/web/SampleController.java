@@ -27,7 +27,7 @@ import javax.validation.Valid;
 
 /**
  * <p>
- *     例子
+ *     这是一个Rest API接口提供controller的例子
  * </p>
  * <p>
  *     框架的返回数据结构统一为{@link MyResponse}:
