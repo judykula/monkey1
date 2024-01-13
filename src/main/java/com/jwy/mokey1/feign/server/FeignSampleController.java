@@ -16,7 +16,6 @@ import com.jwy.medusa.mvc.MyResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
 
 /**
  * <p>
@@ -35,7 +34,7 @@ import reactor.core.publisher.Mono;
 public class FeignSampleController {
 
     @GetMapping("/f1")
-    public Mono<MyResponse> f1() {
+    public MyResponse f1() {
         throw new MyServiceException();
     }
 
