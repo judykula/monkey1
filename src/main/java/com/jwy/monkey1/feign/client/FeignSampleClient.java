@@ -9,25 +9,19 @@
  * · · _//                                       ||
  * · · · · · · · · · · · · · · · · · ·· ·    ___//
  */
-package com.jwy.mokey1.dto.request;
+package com.jwy.monkey1.feign.client;
 
-import lombok.Data;
-
-import javax.validation.constraints.NotEmpty;
+import org.springframework.cloud.openfeign.FeignClient;
 
 /**
  * <p>
- *     用于验证Valid
+ *     Feign client 例子
  * </p>
  *
  * @author Jiang Wanyu
  * @version 1.0
- * @date 2023/12/14
+ * @date 2024/1/30
  */
-@Data
-public class ValidSampleDto {
-
-    @NotEmpty(message = "arg1 不能为空！")
-    private String arg1;
-
+//@FeignClient(name = "xxx-fsc")
+public interface FeignSampleClient {
 }

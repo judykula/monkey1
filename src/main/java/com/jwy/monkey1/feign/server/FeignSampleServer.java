@@ -9,9 +9,9 @@
  * · · _//                                       ||
  * · · · · · · · · · · · · · · · · · ·· ·    ___//
  */
-package com.jwy.mokey1.feign.server;
+package com.jwy.monkey1.feign.server;
 
-import com.jwy.medusa.exception.MyServiceException;
+import com.jwy.medusa.common.exception.MyServiceException;
 import com.jwy.medusa.mvc.MyResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/feign/sample")
-public class FeignSampleController {
+public class FeignSampleServer {
 
     @GetMapping("/f1")
     public MyResponse f1() {

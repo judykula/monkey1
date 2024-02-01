@@ -9,19 +9,19 @@
  * · · _//                                       ||
  * · · · · · · · · · · · · · · · · · ·· ·    ___//
  */
-package com.jwy.mokey1.web;
+package com.jwy.monkey1.web;
 
-import com.jwy.medusa.exception.MyServiceException;
+import com.jwy.medusa.common.exception.MyServiceException;
 import com.jwy.medusa.mvc.MyResponse;
-import com.jwy.mokey1.dto.request.ValidSampleDto;
-import lombok.extern.slf4j.Slf4j;
+import com.jwy.monkey1.pojo.request.ValidSampleReq;
+import com.jwy.monkey1.service.SampleService1;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 
@@ -49,10 +49,25 @@ import javax.validation.Valid;
  * @version 1.0
  * @date 2023/11/21
  */
-@Slf4j
 @RestController
 @RequestMapping("/sample")
 public class SampleController {
+
+    @Autowired
+    private SampleService1 sampleService;
+
+    /**
+     * 例子：一个正常的业务逻辑
+     *
+     * @param userId
+     * @return
+     */
+    @GetMapping("/s0")
+    public MyResponse s0(Long userId) {
+
+        return MyResponse.ofSuccess(userId);
+    }
+
 
     /**
      * 例子：使用path value的参数方式请求
@@ -63,8 +78,8 @@ public class SampleController {
      * @return
      */
     @GetMapping("/s1/{userId}")
-    public Mono<MyResponse> s1(@PathVariable Long userId) {
-        return Mono.just(MyResponse.ofSuccess(userId));
+    public MyResponse s1(@PathVariable Long userId) {
+        return MyResponse.ofSuccess(userId);
     }
 
     /**
@@ -73,7 +88,7 @@ public class SampleController {
      * @return
      */
     @GetMapping("/s2")
-    public Mono<MyResponse> s2() {
+    public MyResponse s2() {
         throw new MyServiceException();
     }
 
@@ -84,10 +99,10 @@ public class SampleController {
      * @return
      */
     @PostMapping("/s3")
-    public Mono<MyResponse> s3(@Valid @RequestBody ValidSampleDto sampleDto) {
-        log.info("================== "+ sampleDto);
+    public MyResponse s3(@Valid @RequestBody ValidSampleReq sampleDto) {
+        System.out.println(sampleDto);
 
-        return Mono.just(MyResponse.ofSuccess());
+        return MyResponse.ofSuccess();
     }
 
 }

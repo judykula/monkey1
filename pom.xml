@@ -53,6 +53,13 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
+        <!-- framework-id generate client -->
+        <dependency>
+            <groupId>com.jwy</groupId>
+            <artifactId>arcwarden</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- tools -->
         <dependency>
             <groupId>org.projectlombok</groupId>
