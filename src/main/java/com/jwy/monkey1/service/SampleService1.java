@@ -31,6 +31,9 @@ import java.util.List;
  *
  *     主要场景是主键的生成策略你要自己控制，比如在 {@link SampleEntity1}里配置了 "自增主键"
  * </p>
+ * <p>
+ *     这些是样例代码，在实际使用后删除
+ * </p>
  *
  * @author Jiang Wanyu
  * @version 1.0

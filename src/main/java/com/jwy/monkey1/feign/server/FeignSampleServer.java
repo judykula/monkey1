@@ -24,6 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>
  *     ！！所有的请求路径都必须以"/feign"开头
  * </p>
+ * <p>
+ *     这些是样例代码，在实际使用后删除
+ * </p>
  *
  * @author Jiang Wanyu
  * @version 1.0

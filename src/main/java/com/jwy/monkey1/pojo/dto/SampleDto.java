@@ -31,6 +31,9 @@ import java.util.Date;
  *          [View] -> xxxResponse <- [Controller] <-  xxxBo <- [Service] <- xxxEntity <- [Repository]
  *     </pre>
  * </p>
+ * <p>
+ *     这些是样例代码，在实际使用后删除
+ * </p>
  *
  * @author Jiang Wanyu
  * @version 1.0

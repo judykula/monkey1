@@ -22,6 +22,9 @@ import org.springframework.stereotype.Repository;
  * <p>
  *     如何写查询参考{@code https://docs.spring.io/spring-data/jpa/docs/2.7.18/reference/html/#repository-query-keywords}
  * </p>
+ * <p>
+ *     这些是样例代码，在实际使用后删除
+ * </p>
  *
  * @author Jiang Wanyu
  * @version 1.0

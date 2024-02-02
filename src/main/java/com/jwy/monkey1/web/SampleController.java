@@ -44,6 +44,9 @@ import javax.validation.Valid;
  *     </pre>
  *     请求方需要优先判断"mystatus"对象，再根据code进行逻辑 "正常/异常"处理，以及是否需要解析"data"对象。
  * </p>
+ * <p>
+ *     这些是样例代码，在实际使用后删除
+ * </p>
  *
  * @author Jiang Wanyu
  * @version 1.0

@@ -24,6 +24,9 @@ import java.util.stream.Collectors;
  * <p>
  *     sample的转换器
  * </p>
+ * <p>
+ *     这些是样例代码，在实际使用后删除
+ * </p>
  *
  * @author Jiang Wanyu
  * @version 1.0

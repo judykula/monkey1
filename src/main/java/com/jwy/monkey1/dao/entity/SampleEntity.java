@@ -9,22 +9,16 @@
  * · · _//                                       ||
  * · · · · · · · · · · · · · · · · · ·· ·    ___//
  */
-package com.jwy.monkey1.feign.client;
-
-import org.springframework.cloud.openfeign.FeignClient;
+package com.jwy.monkey1.dao.entity;
 
 /**
  * <p>
- *     Feign client 例子
- * </p>
- * <p>
- *     这些是样例代码，在实际使用后删除
+ *      TODO  some word
  * </p>
  *
  * @author Jiang Wanyu
  * @version 1.0
- * @date 2024/1/30
+ * @date 2024/2/2
  */
-//@FeignClient(name = "xxx-fsc")
-public interface FeignSampleClient {
+public class SampleEntity {
 }
