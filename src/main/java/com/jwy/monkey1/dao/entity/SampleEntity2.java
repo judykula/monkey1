@@ -11,39 +11,33 @@
  */
 package com.jwy.monkey1.dao.entity;
 
-import com.jwy.warlock.strategy.AbstractSpecifyIdEntity;
+import com.jwy.warlock.strategy.AbstractEntity;
 import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.util.Date;
 
 /**
  * <p>
- *     例子entity2: 继承{@link AbstractSpecifyIdEntity} id字段需要自己设定
- *
- *     比如这样:
- *     <pre>
- *         SampleEntity2 entity = new SampleEntity2();
- *         entity.setId(123);
- *     </pre>
+ *     例子entity2: 继承{@link AbstractEntity} "ID"的命名以及生成策略可以自定义
  * </p>
  * <p>
- *     不建议使用此策略，请优先选择{@link SampleEntity1} 或者{@link SampleEntity}对应的例子
+ *     ！！不建议使用此策略，请优先选择{@link SampleEntity1} 或者{@link SampleEntity}对应的例子。
+ *     如果有特殊需求需要经过技术评审后使用。
  * </p>
  * <p>
  *     我在配置里添加了这条"{@code spring.jpa.hibernate.ddl-auto=update}"，代表系统启动时自动根据{@code Entity}生成表，
  *     嗯...这个叫"模型驱动开发"^-^，所以在开发阶段你只需要注意维护entity即可，不需要手动建表。
  *     <font color='red'>注意这个配置不能在生产环境配置</font>
  *     <br/><br/>
- *     自动生成的建表语句是这样的：
+ *     自动生成的建表语句是这样的（id字段策略可能会随着你的选择不同）：
  *     <pre>
  *          CREATE TABLE `sample2` (
- *              `id` bigint NOT NULL,
+ *              `id` varchar(32) NOT NULL,
  *              `create_time` bigint DEFAULT NULL,
  *              `update_time` bigint NOT NULL,
  *              `age` int NOT NULL,
@@ -73,19 +67,32 @@ import java.util.Date;
  */
 @Entity
 @Data
-@Table(name = "sample2", indexes = {
+@Table(name = "sample3", indexes = {
         @Index(name = "idx_bd", columnList = "birthday"),
         @Index(name = "idx_ctime_age", columnList = "createTime, age")
 })
-public class SampleEntity2 extends AbstractSpecifyIdEntity {
+public class SampleEntity2 extends AbstractEntity{
 
-    @Column(length = 100, nullable = false)
-    private String firstName;
+    /*
+     * 比如你想用uuid生成主键
+     */
+    @Id
+    @GeneratedValue(generator = "jpa-uuid")
+    @Column(length = 32)
+    private String id;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(length = 100, nullable = false)
-    private Date birthday;
+    ///**
+    // * 比如你想用一张表来存储要生成的ID
+    // */
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.TABLE)
+    //private Long id;
 
-    @Column(nullable = false)
-    private Integer age;
+    ///**
+    // * 比如你想换一个主键名（如果你疯了的话）
+    // */
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    //private Long idididi;
+
 }

@@ -11,11 +11,13 @@
  */
 package com.jwy.monkey1.service;
 
+import com.jwy.arcwarden.IdGeneratorClient;
+import com.jwy.medusa.common.utils.spring.MyContextUtils;
 import com.jwy.medusa.mvc.MyStatus;
+import com.jwy.monkey1.common.convertor.SampleConvertor;
 import com.jwy.monkey1.common.exception.Monkey1Exception;
-import com.jwy.monkey1.common.convertor.Sample1Convertor;
-import com.jwy.monkey1.dao.entity.SampleEntity1;
-import com.jwy.monkey1.dao.repository.SampleRepository1;
+import com.jwy.monkey1.dao.entity.SampleEntity;
+import com.jwy.monkey1.dao.repository.SampleRepository;
 import com.jwy.monkey1.pojo.bo.SampleBo;
 import com.jwy.monkey1.pojo.dto.SampleDto;
 import lombok.extern.slf4j.Slf4j;
@@ -27,9 +29,11 @@ import java.util.List;
 
 /**
  * <p>
- *     这个例子结合{@link SampleRepository1} 和 {@link SampleEntity1}使用
+ *     手动指定id生成
  *
- *     主要场景是主键的生成策略你要自己控制，比如在 {@link SampleEntity1}里配置了 "自增主键"
+ *     这个例子结合{@link SampleRepository} 和 {@link SampleEntity}使用
+ *
+ *     请优先使用本例子模版编写代码
  * </p>
  * <p>
  *     这些是样例代码，在实际使用后删除
@@ -37,41 +41,48 @@ import java.util.List;
  *
  * @author Jiang Wanyu
  * @version 1.0
- * @date 2024/1/30
+ * @date 2024/2/2
  */
 @Slf4j
 @Service
-public class SampleService1 {
+public class SampleService {
 
     @Autowired
-    private SampleRepository1 sampleRepository1;
+    private MyContextUtils myContextUtils;
+    @Autowired
+    private IdGeneratorClient idGeneratorClient;
+    @Autowired
+    private SampleRepository sampleRepository;
 
     public long add(SampleDto dto){
 
-        SampleEntity1 entity1 = Sample1Convertor.toSampleEntity1(dto);
+        SampleEntity entity = SampleConvertor.toSampleEntity(dto);
         Assert.notNull(dto, "SampleDto is null!");
 
+        long id = this.idGeneratorClient.nextId();
+        entity.setId(id);
+
         try {
-            SampleEntity1 s = sampleRepository1.save(entity1);
+            SampleEntity s = sampleRepository.save(entity);
             return s.getId();
         } catch (Exception e) {
-            log.error("【SS058】add sampleDto fail", e);//log中的"【】"规则：取类名的大写字母+对应行数，方便在查询log是进行grep key抓取
+            log.error("【SS070】add sampleDto fail", e);//log中的"【】"规则：取类名的大写字母("SS")+对应行数("070")，方便在查询log是进行grep key抓取
             throw new Monkey1Exception(MyStatus.of(10000, "Monkey1Exception"), e);//TODO 这块要改成使用 公共jar内定义的 statusz
         }
     }
 
     public List<SampleBo> getAll(){
-        List<SampleEntity1> all;
+        List<SampleEntity> all;
         try {
-            all = this.sampleRepository1.findAll();
+            all = this.sampleRepository.findAll();
         } catch (Exception e) {
-            log.error("【SS065】get all sampleDto fail", e);
+            log.error("【SS080】get all sampleDto fail", e);
             throw new Monkey1Exception(MyStatus.of(10000, "Monkey1Exception"), e);//TODO 这块要改成使用 公共jar内定义的 statusz
         }
 
         // .... do next
 
-        return Sample1Convertor.toSampleBos(all);
+        return SampleConvertor.toSampleBos(all);
     }
 
 }

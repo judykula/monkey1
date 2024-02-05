@@ -12,7 +12,7 @@
 package com.jwy.monkey1.web;
 
 import com.jwy.medusa.mvc.MyResponse;
-import com.jwy.monkey1.convertor.SampleConvertor;
+import com.jwy.monkey1.common.convertor.Sample1Convertor;
 import com.jwy.monkey1.pojo.bo.SampleBo;
 import com.jwy.monkey1.pojo.dto.SampleDto;
 import com.jwy.monkey1.pojo.response.SampleResponse;
@@ -61,7 +61,7 @@ public class TestController {
     @GetMapping("/t2")
     public MyResponse<List<SampleResponse>> t2() {
         List<SampleBo> all = this.sampleService1.getAll();
-        List<SampleResponse> sampleResponses = SampleConvertor.toSampleResponses(all);
+        List<SampleResponse> sampleResponses = Sample1Convertor.toSampleResponses(all);
         return MyResponse.ofSuccess(sampleResponses);
     }
 

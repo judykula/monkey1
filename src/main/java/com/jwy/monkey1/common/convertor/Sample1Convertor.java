@@ -9,7 +9,7 @@
  * · · _//                                       ||
  * · · · · · · · · · · · · · · · · · ·· ·    ___//
  */
-package com.jwy.monkey1.convertor;
+package com.jwy.monkey1.common.convertor;
 
 import com.jwy.monkey1.dao.entity.SampleEntity1;
 import com.jwy.monkey1.pojo.bo.SampleBo;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
- *     sample的转换器
+ *     "sample1"的转换器
  * </p>
  * <p>
  *     这些是样例代码，在实际使用后删除
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @date 2024/1/31
  */
-public class SampleConvertor {
+public class Sample1Convertor {
 
     /**
      * SampleDto -> SampleEntity1
@@ -71,7 +71,7 @@ public class SampleConvertor {
     public static List<SampleBo> toSampleBos(List<SampleEntity1> sampleEntity1s) {
 
         //需要注意sampleEntity1s.size()
-        List<SampleBo> collect = sampleEntity1s.stream().map(SampleConvertor::toSampleBo).filter(Objects::nonNull).collect(Collectors.toList());
+        List<SampleBo> collect = sampleEntity1s.stream().map(Sample1Convertor::toSampleBo).filter(Objects::nonNull).collect(Collectors.toList());
         return collect;
     }
 
@@ -90,6 +90,6 @@ public class SampleConvertor {
     }
 
     public static List<SampleResponse> toSampleResponses(List<SampleBo> sampleBos) {
-        return sampleBos.stream().map(SampleConvertor::toSampleResponse).filter(Objects::nonNull).collect(Collectors.toList());
+        return sampleBos.stream().map(Sample1Convertor::toSampleResponse).filter(Objects::nonNull).collect(Collectors.toList());
     }
 }
