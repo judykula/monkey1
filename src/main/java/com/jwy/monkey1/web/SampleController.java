@@ -13,8 +13,12 @@ package com.jwy.monkey1.web;
 
 import com.jwy.medusa.common.exception.MyServiceException;
 import com.jwy.medusa.mvc.MyResponse;
-import com.jwy.monkey1.pojo.request.ValidSampleReq;
-import com.jwy.monkey1.service.SampleService1;
+import com.jwy.monkey1.convertor.SampleConvertor;
+import com.jwy.monkey1.pojo.bo.SampleBo;
+import com.jwy.monkey1.pojo.dto.SampleDto;
+import com.jwy.monkey1.pojo.request.SampleReq;
+import com.jwy.monkey1.pojo.response.SampleRes;
+import com.jwy.monkey1.service.SampleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -57,20 +63,18 @@ import javax.validation.Valid;
 public class SampleController {
 
     @Autowired
-    private SampleService1 sampleService;
+    private SampleService sampleService;
 
     /**
-     * 例子：一个正常的业务逻辑
+     * 例子：一个正常的请求
      *
      * @param userId
      * @return
      */
     @GetMapping("/s0")
-    public MyResponse s0(Long userId) {
-
+    public MyResponse<Long> s0(Long userId) {
         return MyResponse.ofSuccess(userId);
     }
-
 
     /**
      * 例子：使用path value的参数方式请求
@@ -81,7 +85,7 @@ public class SampleController {
      * @return
      */
     @GetMapping("/s1/{userId}")
-    public MyResponse s1(@PathVariable Long userId) {
+    public MyResponse<Long> s1(@PathVariable Long userId) {
         return MyResponse.ofSuccess(userId);
     }
 
@@ -91,21 +95,37 @@ public class SampleController {
      * @return
      */
     @GetMapping("/s2")
-    public MyResponse s2() {
+    public MyResponse<?> s2() {
         throw new MyServiceException();
     }
 
     /**
-     * 例子：验证{@code Valid}参数验证的框架处理逻辑
+     * 例子：这是一个正常业务流程的例子，添加数据
      *
-     * @param sampleDto
+     * 支持通过spring validation验证请求参数，如果不需要的话去掉{@code @Valid}以及对应"Request"内的数据验证注解即可
+     *
+     * @param sampleReq
      * @return
      */
-    @PostMapping("/s3")
-    public MyResponse s3(@Valid @RequestBody ValidSampleReq sampleDto) {
-        System.out.println(sampleDto);
+    @PostMapping("/add")
+    public MyResponse<Long> s3(@Valid @RequestBody SampleReq sampleReq) {
 
-        return MyResponse.ofSuccess();
+        SampleDto dto = new SampleDto();
+        dto.setAge(sampleReq.getAge());
+        dto.setBirthday(new Date(sampleReq.getBirthday()));
+        dto.setFirstName(sampleReq.getFirstName());
+
+        long id = this.sampleService.add(dto);
+
+        return MyResponse.ofSuccess(id);
+    }
+
+    @GetMapping("/all")
+    public MyResponse<List<SampleRes>> s4() {
+
+        List<SampleBo> all = this.sampleService.getAll();
+        List<SampleRes> sampleRes = SampleConvertor.toSampleResList(all);
+        return MyResponse.ofSuccess(sampleRes);
     }
 
 }

@@ -9,11 +9,12 @@
  * · · _//                                       ||
  * · · · · · · · · · · · · · · · · · ·· ·    ___//
  */
-package com.jwy.monkey1.common.convertor;
+package com.jwy.monkey1.convertor;
 
 import com.jwy.monkey1.dao.entity.SampleEntity;
 import com.jwy.monkey1.pojo.bo.SampleBo;
 import com.jwy.monkey1.pojo.dto.SampleDto;
+import com.jwy.monkey1.pojo.response.SampleRes;
 
 import java.util.List;
 import java.util.Objects;
@@ -61,5 +62,23 @@ public class SampleConvertor{
 
     public static List<SampleBo> toSampleBos(List<SampleEntity> sampleEntitys) {
         return sampleEntitys.stream().map(SampleConvertor::toSampleBo).filter(Objects::nonNull).collect(Collectors.toList());
+    }
+
+
+    public static SampleRes toSampleRes(SampleBo sampleBo) {
+        if (sampleBo == null) {
+            return null;
+        }
+        SampleRes sampleRes = new SampleRes();
+        sampleRes.setFirstName(sampleBo.getFirstName());
+        sampleRes.setBirthday(sampleBo.getBirthday());
+        sampleRes.setAge(sampleBo.getAge());
+        sampleRes.setCreateTime(sampleBo.getCreateTime());
+
+        return sampleRes;
+    }
+
+    public static List<SampleRes> toSampleResList(List<SampleBo> sampleBos) {
+        return sampleBos.stream().map(SampleConvertor::toSampleRes).filter(Objects::nonNull).collect(Collectors.toList());
     }
 }

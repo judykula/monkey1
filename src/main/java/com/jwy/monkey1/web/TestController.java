@@ -12,10 +12,10 @@
 package com.jwy.monkey1.web;
 
 import com.jwy.medusa.mvc.MyResponse;
-import com.jwy.monkey1.common.convertor.Sample1Convertor;
+import com.jwy.monkey1.convertor.Sample1Convertor;
 import com.jwy.monkey1.pojo.bo.SampleBo;
 import com.jwy.monkey1.pojo.dto.SampleDto;
-import com.jwy.monkey1.pojo.response.SampleResponse;
+import com.jwy.monkey1.pojo.response.SampleRes;
 import com.jwy.monkey1.service.SampleService1;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
@@ -59,9 +59,9 @@ public class TestController {
     }
 
     @GetMapping("/t2")
-    public MyResponse<List<SampleResponse>> t2() {
+    public MyResponse<List<SampleRes>> t2() {
         List<SampleBo> all = this.sampleService1.getAll();
-        List<SampleResponse> sampleResponses = Sample1Convertor.toSampleResponses(all);
+        List<SampleRes> sampleResponses = Sample1Convertor.toSampleResponses(all);
         return MyResponse.ofSuccess(sampleResponses);
     }
 

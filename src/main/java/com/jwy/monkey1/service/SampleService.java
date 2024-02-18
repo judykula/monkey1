@@ -14,7 +14,7 @@ package com.jwy.monkey1.service;
 import com.jwy.arcwarden.IdGeneratorClient;
 import com.jwy.medusa.common.utils.spring.MyContextUtils;
 import com.jwy.medusa.mvc.MyStatus;
-import com.jwy.monkey1.common.convertor.SampleConvertor;
+import com.jwy.monkey1.convertor.SampleConvertor;
 import com.jwy.monkey1.common.exception.Monkey1Exception;
 import com.jwy.monkey1.dao.entity.SampleEntity;
 import com.jwy.monkey1.dao.repository.SampleRepository;
@@ -28,6 +28,9 @@ import org.springframework.util.Assert;
 import java.util.List;
 
 /**
+ * <p>
+ *     关于"service层"的例子
+ * </p>
  * <p>
  *     手动指定id生成
  *
@@ -80,9 +83,11 @@ public class SampleService {
             throw new Monkey1Exception(MyStatus.of(10000, "Monkey1Exception"), e);//TODO 这块要改成使用 公共jar内定义的 statusz
         }
 
+        List<SampleBo> sampleBos = SampleConvertor.toSampleBos(all);
+
         // .... do next
 
-        return SampleConvertor.toSampleBos(all);
+        return sampleBos;
     }
 
 }

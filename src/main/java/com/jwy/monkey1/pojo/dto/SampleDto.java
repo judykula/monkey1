@@ -11,10 +11,7 @@
  */
 package com.jwy.monkey1.pojo.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Data;
 
 import java.util.Date;
 
@@ -28,7 +25,7 @@ import java.util.Date;
  *     <pre>
  *          [View] -> xxxRequest -> [Controller] ->  xxxDto -> [Service] -> xxxEntity -> [Repository]
  *
- *          [View] -> xxxResponse <- [Controller] <-  xxxBo <- [Service] <- xxxEntity <- [Repository]
+ *          [View] <- xxxResponse <- [Controller] <-  xxxBo <- [Service] <- xxxEntity <- [Repository]
  *     </pre>
  * </p>
  * <p>
@@ -39,10 +36,7 @@ import java.util.Date;
  * @version 1.0
  * @date 2024/1/31
  */
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
+@Data
 public class SampleDto {
 
     private String firstName;

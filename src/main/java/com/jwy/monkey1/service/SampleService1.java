@@ -13,7 +13,7 @@ package com.jwy.monkey1.service;
 
 import com.jwy.medusa.mvc.MyStatus;
 import com.jwy.monkey1.common.exception.Monkey1Exception;
-import com.jwy.monkey1.common.convertor.Sample1Convertor;
+import com.jwy.monkey1.convertor.Sample1Convertor;
 import com.jwy.monkey1.dao.entity.SampleEntity1;
 import com.jwy.monkey1.dao.repository.SampleRepository1;
 import com.jwy.monkey1.pojo.bo.SampleBo;

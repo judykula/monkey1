@@ -9,22 +9,22 @@
  * · · _//                                       ||
  * · · · · · · · · · · · · · · · · · ·· ·    ___//
  */
-package com.jwy.monkey1.pojo.request;
+package com.jwy.monkey1.pojo.response;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
+import java.util.Date;
 
 /**
  * <p>
- *     用于验证Valid的例子
+ *     sample 的response
  * </p>
  * <p>
  *     关于各个层之间的数据传输对象定义：
  *     <pre>
  *          [View] -> xxxRequest -> [Controller] ->  xxxDto -> [Service] -> xxxEntity -> [Repository]
  *
- *          [View] -> xxxResponse <- [Controller] <-  xxxBo <- [Service] <- xxxEntity <- [Repository]
+ *          [View] <- xxxResponse <- [Controller] <-  xxxBo <- [Service] <- xxxEntity <- [Repository]
  *     </pre>
  * </p>
  * <p>
@@ -33,12 +33,13 @@ import javax.validation.constraints.NotEmpty;
  *
  * @author Jiang Wanyu
  * @version 1.0
- * @date 2023/12/14
+ * @date 2024/2/1
  */
 @Data
-public class ValidSampleReq {
+public class SampleRes {
 
-    @NotEmpty(message = "arg1 不能为空！")
-    private String arg1;
-
+    private String firstName;
+    private Date birthday;
+    private Integer age;
+    private long createTime;
 }
