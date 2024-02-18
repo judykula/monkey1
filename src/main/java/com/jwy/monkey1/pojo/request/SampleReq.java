@@ -14,6 +14,7 @@ package com.jwy.monkey1.pojo.request;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 /**
@@ -50,10 +51,10 @@ public class SampleReq {
 
     @NotEmpty(message = "firstName 不能为空！")
     private String firstName;
-    @NotEmpty(message = "birthday 不能为空！")
+    @NotNull(message = "birthday 不能为空！")
     private Long birthday;
     @Positive
-    @NotEmpty(message = "age 不能为空！")
+    @NotNull(message = "age 不能为空！")
     private Integer age;
 
 }
