@@ -47,11 +47,10 @@ public class TestController {
     public MyResponse t1() {
 
         for (int i = 0; i < 10; i++) {
-            SampleDto sampleDto = SampleDto.builder()
-                    .age(RandomUtils.nextInt(0, 100))
-                    .firstName(RandomStringUtils.randomAlphanumeric(10))
-                    .birthday(new Date())
-                    .build();
+            SampleDto sampleDto = new SampleDto();
+            sampleDto.setAge(RandomUtils.nextInt(0, 100));
+            sampleDto.setFirstName(RandomStringUtils.randomAlphanumeric(10));
+            sampleDto.setBirthday(new Date());
             this.sampleService1.add(sampleDto);
         }
 
