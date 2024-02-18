@@ -18,7 +18,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.Table;
 
 /**
@@ -67,10 +66,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Data
-@Table(name = "sample3", indexes = {
-        @Index(name = "idx_bd", columnList = "birthday"),
-        @Index(name = "idx_ctime_age", columnList = "createTime, age")
-})
+@Table(name = "sample2")
 public class SampleEntity2 extends AbstractEntity{
 
     /*
