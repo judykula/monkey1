@@ -13,6 +13,7 @@ package com.jwy.monkey1.dao.entity;
 
 import com.jwy.warlock.strategy.AbstractEntity;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -67,6 +68,7 @@ import javax.persistence.Table;
 @Entity
 @Data
 @Table(name = "sample2")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class SampleEntity2 extends AbstractEntity{
 
     /*
