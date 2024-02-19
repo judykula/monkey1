@@ -39,6 +39,10 @@ import java.util.List;
  *     请优先使用本例子模版编写代码
  * </p>
  * <p>
+ *     关于MyContextUtils：是框架提供上下文工具类集合，可以通过this.myContextUtils.xxx()直接使用已经封装好的工具，
+ *     查看源代码注释以更好的使用。
+ * </p>
+ * <p>
  *     这些是样例代码，在实际使用后删除
  * </p>
  *
