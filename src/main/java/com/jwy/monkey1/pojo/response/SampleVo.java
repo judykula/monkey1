@@ -11,6 +11,7 @@
  */
 package com.jwy.monkey1.pojo.response;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.Date;
@@ -36,10 +37,18 @@ import java.util.Date;
  * @date 2024/2/1
  */
 @Data
-public class SampleRes {
+@Schema(description = "Sample响应返回数据对象")
+public class SampleVo {
 
+    @Schema(name = "firstName", description = "姓名", example = "jiasdg")
     private String firstName;
+
+    @Schema(name = "birthday", description = "生日信息", example = "2024-02-03")
     private Date birthday;
+
+    @Schema(name = "age", description = "你的年龄", example = "1")
     private Integer age;
+
+    @Schema(name = "createTime", description = "这条数据的创建时间", example = "12342353456354")
     private long createTime;
 }

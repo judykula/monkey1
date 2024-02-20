@@ -15,8 +15,14 @@ import com.jwy.medusa.mvc.MyResponse;
 import com.jwy.monkey1.convertor.Sample1Convertor;
 import com.jwy.monkey1.pojo.bo.SampleBo;
 import com.jwy.monkey1.pojo.dto.SampleDto;
-import com.jwy.monkey1.pojo.response.SampleRes;
+import com.jwy.monkey1.pojo.response.SampleVo;
 import com.jwy.monkey1.service.SampleService1;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +44,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/test")
+@Tag(name = "TEST", description = "测试接口")
 public class TestController {
 
     @Autowired
@@ -57,10 +64,23 @@ public class TestController {
         return MyResponse.ofSuccess();
     }
 
+    @Operation(
+            summary = "查询所有数据",
+            description = "这是一个测试接口，用于查询所有测试生成的数据",
+            parameters = {
+                    @Parameter(name = "id", description = "这是一个测试参数", required = false, example = "1")
+            },
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "响应成功"),
+                    @ApiResponse(responseCode = "500", description = "响应失败",
+                            content = @Content(schema = @Schema(implementation = MyResponse.class))
+                    )
+            }
+    )
     @GetMapping("/t2")
-    public MyResponse<List<SampleRes>> t2() {
+    public MyResponse<List<SampleVo>> t2() {
         List<SampleBo> all = this.sampleService1.getAll();
-        List<SampleRes> sampleResponses = Sample1Convertor.toSampleResponses(all);
+        List<SampleVo> sampleResponses = Sample1Convertor.toSampleResponses(all);
         return MyResponse.ofSuccess(sampleResponses);
     }
 

@@ -17,8 +17,15 @@ import com.jwy.monkey1.convertor.SampleConvertor;
 import com.jwy.monkey1.pojo.bo.SampleBo;
 import com.jwy.monkey1.pojo.dto.SampleDto;
 import com.jwy.monkey1.pojo.request.SampleReq;
-import com.jwy.monkey1.pojo.response.SampleRes;
+import com.jwy.monkey1.pojo.response.SampleVo;
 import com.jwy.monkey1.service.SampleService;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,6 +67,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/sample")
+@Tag(name = "SAMPLE", description = "样例接口")
 public class SampleController {
 
     @Autowired
@@ -71,6 +79,19 @@ public class SampleController {
      * @param userId
      * @return
      */
+    @Operation(
+            summary = "一个正常的请求接口例子",
+            description = "可以用来测试正常的请求以及响应的数据结构",
+            parameters = {
+                    @Parameter(name = "userId", description = "用户ID", required = true, example = "1")
+            },
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "响应成功, 返回的是你输入的参数"),
+                    @ApiResponse(responseCode = "500", description = "响应失败",
+                            content = @Content(schema = @Schema(implementation = MyResponse.class))
+                    )
+            }
+    )
     @GetMapping("/s0")
     public MyResponse<Long> s0(Long userId) {
         return MyResponse.ofSuccess(userId);
@@ -84,6 +105,19 @@ public class SampleController {
      * @param userId
      * @return
      */
+    @Operation(
+            summary = "一个正常的请求接口例子，使用的是PathVariable的参数请求方式",
+            description = "可以用来测试PathVariable样式的请求以及响应的数据结构",
+            parameters = {
+                    @Parameter(name = "userId", description = "用户ID", required = true, example = "1")
+            },
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "响应成功, 返回的是你输入的参数"),
+                    @ApiResponse(responseCode = "500", description = "响应失败",
+                            content = @Content(schema = @Schema(implementation = MyResponse.class))
+                    )
+            }
+    )
     @GetMapping("/s1/{userId}")
     public MyResponse<Long> s1(@PathVariable Long userId) {
         return MyResponse.ofSuccess(userId);
@@ -94,6 +128,7 @@ public class SampleController {
      *
      * @return
      */
+    @Hidden
     @GetMapping("/s2")
     public MyResponse<?> s2() {
         throw new MyServiceException();
@@ -107,6 +142,19 @@ public class SampleController {
      * @param sampleReq
      * @return
      */
+    @Operation(
+            summary = "一个正常的业务流程接口样例, 输入一条数据至数据库",
+            description = "",
+            parameters = {
+                    @Parameter(schema = @Schema(implementation = SampleReq.class), content = @Content(mediaType="application/json"))
+            },
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "响应成功"),
+                    @ApiResponse(responseCode = "500", description = "响应失败",
+                            content = @Content(schema = @Schema(implementation = MyResponse.class))
+                    )
+            }
+    )
     @PostMapping("/add")
     public MyResponse<Long> s3(@Valid @RequestBody SampleReq sampleReq) {
 
@@ -120,11 +168,22 @@ public class SampleController {
         return MyResponse.ofSuccess(id);
     }
 
+    @Operation(
+            summary = "一个正常的业务流程接口样例, 查询所有数据",
+            description = "",
+            parameters = {},
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "响应成功, 返回的是你输入的参数"),
+                    @ApiResponse(responseCode = "500", description = "响应失败",
+                            content = @Content(schema = @Schema(implementation = MyResponse.class))
+                    )
+            }
+    )
     @GetMapping("/all")
-    public MyResponse<List<SampleRes>> s4() {
+    public MyResponse<List<SampleVo>> s4() {
 
         List<SampleBo> all = this.sampleService.getAll();
-        List<SampleRes> sampleRes = SampleConvertor.toSampleResList(all);
+        List<SampleVo> sampleRes = SampleConvertor.toSampleResList(all);
         return MyResponse.ofSuccess(sampleRes);
     }
 

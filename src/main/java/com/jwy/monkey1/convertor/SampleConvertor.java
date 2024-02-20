@@ -14,7 +14,7 @@ package com.jwy.monkey1.convertor;
 import com.jwy.monkey1.dao.entity.SampleEntity;
 import com.jwy.monkey1.pojo.bo.SampleBo;
 import com.jwy.monkey1.pojo.dto.SampleDto;
-import com.jwy.monkey1.pojo.response.SampleRes;
+import com.jwy.monkey1.pojo.response.SampleVo;
 
 import java.util.List;
 import java.util.Objects;
@@ -65,11 +65,11 @@ public class SampleConvertor{
     }
 
 
-    public static SampleRes toSampleRes(SampleBo sampleBo) {
+    public static SampleVo toSampleRes(SampleBo sampleBo) {
         if (sampleBo == null) {
             return null;
         }
-        SampleRes sampleRes = new SampleRes();
+        SampleVo sampleRes = new SampleVo();
         sampleRes.setFirstName(sampleBo.getFirstName());
         sampleRes.setBirthday(sampleBo.getBirthday());
         sampleRes.setAge(sampleBo.getAge());
@@ -78,7 +78,7 @@ public class SampleConvertor{
         return sampleRes;
     }
 
-    public static List<SampleRes> toSampleResList(List<SampleBo> sampleBos) {
+    public static List<SampleVo> toSampleResList(List<SampleBo> sampleBos) {
         return sampleBos.stream().map(SampleConvertor::toSampleRes).filter(Objects::nonNull).collect(Collectors.toList());
     }
 }
