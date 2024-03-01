@@ -32,6 +32,13 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
+        <!-- framework-common -->
+        <dependency>
+            <groupId>com.jwy</groupId>
+            <artifactId>wisp</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- framework-log -->
         <dependency>
             <groupId>com.jwy</groupId>
