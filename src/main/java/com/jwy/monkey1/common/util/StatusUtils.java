@@ -9,7 +9,7 @@
  * · · _//                                       ||
  * · · · · · · · · · · · · · · · · · ·· ·    ___//
  */
-package com.jwy.monkey1.common.utils;
+package com.jwy.monkey1.common.util;
 
 import com.jwy.medusa.mvc.MyStatus;
 import com.jwy.medusa.mvc.MyStatusz;
